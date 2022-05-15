@@ -14,9 +14,9 @@ export function loadBankAccounts() {
     return function (dispatch) {
         dispatch(beginApiCall)
         return bankAccountApi
-        .getAllAccounts()
-        .then(response => {
-            dispatch(loadBankAccountsSuccess(response.results));
+        .getAllAccountsParse()
+        .then(results => {
+            dispatch(loadBankAccountsSuccess(results));
         })
         .catch (error => {
             dispatch(apiCallError())
