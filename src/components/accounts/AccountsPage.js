@@ -169,6 +169,7 @@ class AccountsPage extends React.Component {
                      <button onClick={this.handleSelectedGroupChange}>Juniors</button>
                      <button onClick={this.handleSelectedGroupChange}>Intermediates</button>
                      <button onClick={this.handleSelectedGroupChange}>Teens</button>
+                     <button onClick={this.handleSelectedGroupChange}>Clubs</button>
                  </div>
                 {this.props.loading ? (<Spinner />) : (
                     <AccountList bankAccounts={this.props.bankAccounts} session={this.props.session} users={this.props.users} onDeleteClick={this.handleDeleteUser} onGroupRoleChange={this.handleGroupeRoleChange} onIsApprovedChange={this.handleIsApprovedChange} onSubmitClick={this.handleSubmitUser} onCreateBankAccountChange={this.handleCreateBankAccountChange}></AccountList>)
