@@ -61,6 +61,6 @@ export function updateUser(user) {
 export function deleteUser(user) {
     return function (dispatch) {
         dispatch(deleteUserOptimistic(user))
-        return userApi.deleteUser(user.id)
+        return userApi.deleteUserParse(user)
     }
 }

@@ -17,10 +17,10 @@ import ManageGameNightPage from './components/gameNights/ManageGameNightPage'
 import ManageAccountPage from './components/accounts/ManageAccountPage'
 
 //TODO Add secure configs for this
-const PARSE_APPLICATION_ID = 'pen8j01Zc3JaqVkHmMCbZud1AhOaOMeBYTpzlUhw'
-const PARSE_HOST_URL = 'https://parseapi.back4app.com/'
-const PARSE_JAVASCRIPT_KEY = 'RJQoYRy9K5rQCB9J5YxEnp1ygWvXefCJIqJkJNn3'
-const PARSE_MASTERKEY = '3hlVNYvdklJmh8XsIs4l2qp9gZ9ANDk7cRZ3ctfN'
+const PARSE_APPLICATION_ID = process.env.REACT_APP_PARSE_APPLICATION_ID
+const PARSE_HOST_URL = process.env.REACT_APP_PARSE_HOST_URL
+const PARSE_JAVASCRIPT_KEY = process.env.REACT_APP_PARSE_JAVASCRIPT_KEY
+const PARSE_MASTERKEY = process.env.REACT_APP_PARSE_MASTERKEY
 Parse.initialize(PARSE_APPLICATION_ID, PARSE_JAVASCRIPT_KEY)
 Parse.serverURL = PARSE_HOST_URL
 Parse.masterKey = PARSE_MASTERKEY

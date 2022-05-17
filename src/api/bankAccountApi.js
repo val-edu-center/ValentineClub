@@ -1,6 +1,7 @@
 import { handleResponse, handleError, loadFromLocalStorage } from "./apiUtils";
 import * as bankAccountMapper from '../utility/BankAccountMapper'
 import Parse from 'parse/dist/parse.min.js'
+import BankAccount from '../model/BankAccount'
 
 const baseUrl = process.env.BACK4APP_API_URL + "/classes/Accounts";
 const appId = process.env.BACK4APP_APP_ID;
@@ -43,5 +44,14 @@ export function createBankAccount(username) {
     })
         .then(handleResponse)
         .catch(handleError);
+}
 
+export const createBankAccountParse = async (username) => {
+    const bankAccount = new Parse.Object("Account")
+
+    bankAccount.set("username", username)
+    bankAccount.set("balance", 0)
+
+    await bankAccount.save()
+    return bankAccountMapper.mapBankAccountParse(bankAccount)
 }

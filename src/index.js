@@ -33,7 +33,6 @@ store.subscribe(() => {
 });
 
 const container = document.getElementById('app')
-console.log(container)
 const root = createRoot(container) // createRoot(container!) if you use TypeScript
 root.render(<ReduxProvider store={store}><Router><App /></Router></ReduxProvider>)
 

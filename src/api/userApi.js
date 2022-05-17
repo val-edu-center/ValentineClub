@@ -56,6 +56,7 @@ export const saveUserParse = async (user) => {
   return newUser
 }
 
+//TODO convert to parse api
 export function deleteUser(userId) {
   const state = loadFromLocalStorage()
   const sessionToken = state.session.sessionToken
@@ -70,4 +71,8 @@ export function deleteUser(userId) {
   })
     .then(handleResponse)
     .catch(handleError);
+}
+
+export const deleteUserParse = async (user) => {
+  await user.parseObject.destroy()
 }
