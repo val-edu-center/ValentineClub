@@ -19,23 +19,26 @@ export function getRoles(roleArray) {
     if (isDirector(roleArray)) {
         roles.isDirector = true
     }
-    if (isStaff(roleArray)) {
+    else if (isStaff(roleArray)) {
         roles.isStaff = true
     }
-    if (isTeen(roleArray)) {
+    else if (isTeen(roleArray)) {
         roles.isTeen = true
     }
-    if (isIntermediate(roleArray)) {
+    else if (isIntermediate(roleArray)) {
         roles.isIntermeidate = true
     }
-    if (isJunior(roleArray)) {
+    else if (isJunior(roleArray)) {
         roles.isJunior = true
     }
-    if (isPrep(roleArray)) {
+    else if (isPrep(roleArray)) {
         roles.isPrep = true
     }
-    if (isCadet(roleArray)) {
+    else if (isCadet(roleArray)) {
         roles.isCadet = true
+    }
+    else if (isClub(roleArray)) {
+        roles.isClub = true
     }
     if (is3DClubDesigner(roleArray)) {
         roles.is3DClubDesigner = true
@@ -72,6 +75,9 @@ export function getGroupRole(roleArray) {
     else if (isCadet(roleArray)) {
         return CADET_ROLE
     }
+    else if (isClub(roleArray)) {
+        return CLUB_ROLE
+    }
     else {
         return undefined
     }
@@ -103,6 +109,10 @@ function isPrep(roleArray) {
 
 function isCadet(roleArray) {
     return roleArray.includes(CADET_ROLE)
+}
+
+function isClub(roleArray) {
+    return roleArray.includes(CLUB_ROLE)
 }
 
 function is3DClubDesigner(roleArray) {

@@ -14,7 +14,6 @@ import * as roleMapper from "../../utility/RoleMapper"
 
 class AccountsPage extends React.Component {
     state = {
-        selectedGroup: "Cadets",
         redirectToAddAccountPage: false
     }
     componentDidMount() {
@@ -148,9 +147,13 @@ class AccountsPage extends React.Component {
     }
 
     handleSelectedGroupChange = event => {
-        const group = event.target.innerText
-        this.state.selectedGroup = group
-        event.target.style = {"background-color":"rgb(2, 232, 248)"}
+        const oldGroup = this.props.selectedGroup
+        const group = event.target.id
+        if (oldGroup === group) {
+            this.props.actions.users.selectGroup("")
+        } else {
+            this.props.actions.users.selectGroup(group)
+        }
     }
 
     render() {
@@ -164,15 +167,16 @@ class AccountsPage extends React.Component {
                      Add User
                  </button>
                  <div style={{display:"flex",justifyContent:"center"}}>
-                     <button onClick={this.handleSelectedGroupChange}>Cadets</button>
-                     <button onClick={this.handleSelectedGroupChange}>Preps</button>
-                     <button onClick={this.handleSelectedGroupChange}>Juniors</button>
-                     <button onClick={this.handleSelectedGroupChange}>Intermediates</button>
-                     <button onClick={this.handleSelectedGroupChange}>Teens</button>
-                     <button onClick={this.handleSelectedGroupChange}>Clubs</button>
+                     {this.props.allRoles.filter(role => roleMapper.roleGroups.includes(role.getName())).map(role => {
+                        if (this.props.selectedGroup === role.getName()) {
+                            return <button style={{"backgroundColor":"rgb(2, 232, 248)"}} key={role.getName()} id={role.getName()} onClick={this.handleSelectedGroupChange}>{role.getName() + "s"}</button>
+                         } else {
+                            return <button key={role.getName()} id={role.getName()} onClick={this.handleSelectedGroupChange}>{role.getName() + "s"}</button>
+                        }
+                     })}
                  </div>
                 {this.props.loading ? (<Spinner />) : (
-                    <AccountList bankAccounts={this.props.bankAccounts} session={this.props.session} users={this.props.users} onDeleteClick={this.handleDeleteUser} onGroupRoleChange={this.handleGroupeRoleChange} onIsApprovedChange={this.handleIsApprovedChange} onSubmitClick={this.handleSubmitUser} onCreateBankAccountChange={this.handleCreateBankAccountChange}></AccountList>)
+                    <AccountList bankAccounts={this.props.bankAccounts} session={this.props.session} selectedGroup={this.props.selectedGroup} users={this.props.users} onDeleteClick={this.handleDeleteUser} onGroupRoleChange={this.handleGroupeRoleChange} onIsApprovedChange={this.handleIsApprovedChange} onSubmitClick={this.handleSubmitUser} onCreateBankAccountChange={this.handleCreateBankAccountChange}></AccountList>)
                 }
             </>
         )
@@ -195,7 +199,8 @@ function mapStateToProps(state) {
         allRoles: state.roles.all,
         usersToRoles: state.roles.userToRoles,
         bankAccounts: state.bankAccounts,
-        users: state.users,
+        users: state.users.list,
+        selectedGroup: state.users.selectedGroup,
         session: state.session,
         loading: state.apiCallsInProgress > 0
     }
