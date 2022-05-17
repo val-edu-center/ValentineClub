@@ -11,8 +11,10 @@ import Spinner from "../common/Spinner"
 import { toast } from "react-toastify"
 import * as roleMapper from "../../utility/RoleMapper"
 
+
 class AccountsPage extends React.Component {
     state = {
+        selectedGroup: "Cadets",
         redirectToAddAccountPage: false
     }
     componentDidMount() {
@@ -145,6 +147,12 @@ class AccountsPage extends React.Component {
         this.props.actions.users.updateUser(newUser)
     }
 
+    handleSelectedGroupChange = event => {
+        const group = event.target.innerText
+        this.state.selectedGroup = group
+        event.target.style = {"background-color":"rgb(2, 232, 248)"}
+    }
+
     render() {
         return (
             <>
@@ -155,6 +163,13 @@ class AccountsPage extends React.Component {
                 <button style={{ marginBottom: 20 }} className="btn btn-primary" onClick={ () => this.setState({ redirectToAddAccountPage: true})}>
                      Add User
                  </button>
+                 <div style={{display:"flex",justifyContent:"center"}}>
+                     <button onClick={this.handleSelectedGroupChange}>Cadets</button>
+                     <button onClick={this.handleSelectedGroupChange}>Preps</button>
+                     <button onClick={this.handleSelectedGroupChange}>Juniors</button>
+                     <button onClick={this.handleSelectedGroupChange}>Intermediates</button>
+                     <button onClick={this.handleSelectedGroupChange}>Teens</button>
+                 </div>
                 {this.props.loading ? (<Spinner />) : (
                     <AccountList bankAccounts={this.props.bankAccounts} session={this.props.session} users={this.props.users} onDeleteClick={this.handleDeleteUser} onGroupRoleChange={this.handleGroupeRoleChange} onIsApprovedChange={this.handleIsApprovedChange} onSubmitClick={this.handleSubmitUser} onCreateBankAccountChange={this.handleCreateBankAccountChange}></AccountList>)
                 }
