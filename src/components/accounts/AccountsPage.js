@@ -11,6 +11,7 @@ import Spinner from "../common/Spinner"
 import { toast } from "react-toastify"
 import * as roleMapper from "../../utility/RoleMapper"
 
+
 class AccountsPage extends React.Component {
     state = {
         redirectToAddAccountPage: false
@@ -145,6 +146,16 @@ class AccountsPage extends React.Component {
         this.props.actions.users.updateUser(newUser)
     }
 
+    handleSelectedGroupChange = event => {
+        const oldGroup = this.props.selectedGroup
+        const group = event.target.id
+        if (oldGroup === group) {
+            this.props.actions.users.selectGroup("")
+        } else {
+            this.props.actions.users.selectGroup(group)
+        }
+    }
+
     render() {
         return (
             <>
@@ -155,8 +166,17 @@ class AccountsPage extends React.Component {
                 <button style={{ marginBottom: 20 }} className="btn btn-primary" onClick={ () => this.setState({ redirectToAddAccountPage: true})}>
                      Add User
                  </button>
+                 <div style={{display:"flex",justifyContent:"center"}}>
+                     {this.props.allRoles.filter(role => roleMapper.roleGroups.includes(role.getName())).map(role => {
+                        if (this.props.selectedGroup === role.getName()) {
+                            return <button style={{"backgroundColor":"rgb(2, 232, 248)"}} key={role.getName()} id={role.getName()} onClick={this.handleSelectedGroupChange}>{role.getName() + "s"}</button>
+                         } else {
+                            return <button key={role.getName()} id={role.getName()} onClick={this.handleSelectedGroupChange}>{role.getName() + "s"}</button>
+                        }
+                     })}
+                 </div>
                 {this.props.loading ? (<Spinner />) : (
-                    <AccountList bankAccounts={this.props.bankAccounts} session={this.props.session} users={this.props.users} onDeleteClick={this.handleDeleteUser} onGroupRoleChange={this.handleGroupeRoleChange} onIsApprovedChange={this.handleIsApprovedChange} onSubmitClick={this.handleSubmitUser} onCreateBankAccountChange={this.handleCreateBankAccountChange}></AccountList>)
+                    <AccountList bankAccounts={this.props.bankAccounts} session={this.props.session} selectedGroup={this.props.selectedGroup} users={this.props.users} onDeleteClick={this.handleDeleteUser} onGroupRoleChange={this.handleGroupeRoleChange} onIsApprovedChange={this.handleIsApprovedChange} onSubmitClick={this.handleSubmitUser} onCreateBankAccountChange={this.handleCreateBankAccountChange}></AccountList>)
                 }
             </>
         )
@@ -179,7 +199,8 @@ function mapStateToProps(state) {
         allRoles: state.roles.all,
         usersToRoles: state.roles.userToRoles,
         bankAccounts: state.bankAccounts,
-        users: state.users,
+        users: state.users.list,
+        selectedGroup: state.users.selectedGroup,
         session: state.session,
         loading: state.apiCallsInProgress > 0
     }

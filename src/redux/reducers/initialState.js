@@ -1,6 +1,6 @@
 export default {
     roles: {all:[], userToRoles:new Map()},
-    users: [],
+    users: {selectedGroup: "", list:[]},
     gameNight: {dates:[], votes:[]},
     bankAccounts: [],
     session: {roles:{}},

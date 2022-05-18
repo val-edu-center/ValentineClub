@@ -8,6 +8,7 @@ class Roles {
     isJunior = false
     isPrep = false
     isCadet = false
+    isClub = false
 }
 
 export default Roles

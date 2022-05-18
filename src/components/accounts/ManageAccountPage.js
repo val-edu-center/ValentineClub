@@ -210,11 +210,11 @@ ManageAccountPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     const slug = ownProps.match.params.slug
-    const account = slug && state.users.length > 0 ? getUserById(state.users, slug) : createNewUser()
+    const account = slug && state.users.list.length > 0 ? getUserById(state.users.list, slug) : createNewUser()
     return {
         allRoles: state.roles.all,
         usersToRoles: state.roles.userToRoles,
-        accounts: state.users,
+        accounts: state.users.list,
         account,
         errors: []
     }

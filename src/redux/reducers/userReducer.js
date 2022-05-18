@@ -1,20 +1,41 @@
-import { CREATE_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_USERS_SUCCESS, DELETE_USER_OPTIMISTIC, CLEAR_USERS } from "../actions/actionTypes"
+import { CREATE_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_USERS_SUCCESS, DELETE_USER_OPTIMISTIC, CLEAR_USERS, SELECT_GROUP_SUCCESS } from "../actions/actionTypes"
 import initialState from './initialState'
 
 export default function userReducer(state = initialState.users, action) {
     switch(action.type) {
         case CREATE_USER_SUCCESS:
-            return [action.user, ...state]
+            return {
+                selectedGroup: action.user.groupRole,
+                list: [action.user, ...state.list]
+            }
         case UPDATE_USER_SUCCESS:
-            return state.map (
-                user => user.id === action.user.id ? action.user : user 
-            )
+            return {
+                ...state,
+                list: state.list.map (
+                    user => user.id === action.user.id ? action.user : user 
+                )
+            }
         case LOAD_USERS_SUCCESS:
-            return action.users
+            return {
+                ...state,
+                list: action.users
+            }
         case DELETE_USER_OPTIMISTIC:
-            return state.filter (user => user.id !== action.user.id)
+            return {
+                ...state,
+                list: state.list.filter (user => user.id !== action.user.id)
+            }
         case CLEAR_USERS:
-            return initialState.users
+            return {
+                ...state,
+                list: initialState.users.list
+            }
+        case SELECT_GROUP_SUCCESS:
+            return {
+                ...state,
+                selectedGroup: action.group
+            }
+
         default:
             return state
     }

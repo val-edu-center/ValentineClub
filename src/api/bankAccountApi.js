@@ -47,7 +47,7 @@ export function createBankAccount(username) {
 }
 
 export const createBankAccountParse = async (username) => {
-    const bankAccount = new Parse.Object("Account")
+    const bankAccount = new Parse.Object("Accounts")
 
     bankAccount.set("username", username)
     bankAccount.set("balance", 0)

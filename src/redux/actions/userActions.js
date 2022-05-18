@@ -1,4 +1,4 @@
-import { CREATE_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_USERS_SUCCESS, DELETE_USER_OPTIMISTIC } from "./actionTypes";
+import { CREATE_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_USERS_SUCCESS, DELETE_USER_OPTIMISTIC, SELECT_GROUP_SUCCESS } from "./actionTypes";
 import * as userApi from "../../api/userApi"
 import { apiCallError, beginApiCall } from "./apiStatusActions";
 
@@ -18,6 +18,10 @@ export function deleteUserOptimistic(user) {
     return { type: DELETE_USER_OPTIMISTIC, user}
 }
 
+export function selectGroupSuccess(group) {
+    return { type: SELECT_GROUP_SUCCESS, group}
+}
+
 export function loadUsers() {
     return function (dispatch) {
         dispatch(beginApiCall)
@@ -32,6 +36,12 @@ export function loadUsers() {
         })
     }
 }
+
+export function selectGroup(group) {
+    return function (dispatch) {
+        dispatch(selectGroupSuccess(group))
+    } 
+ }
 
 export function saveUser(user) {
     return function (dispatch) {

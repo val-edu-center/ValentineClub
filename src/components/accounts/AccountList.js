@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import * as roleMapper from "../../utility/RoleMapper"
 import { Link } from 'react-router-dom'
 
-const AccountList = ({ onDeleteClick, onIsApprovedChange, onCreateBankAccountChange, onGroupRoleChange, onSubmitClick, session, users, bankAccounts }) => {
+const AccountList = ({ onDeleteClick, onIsApprovedChange, onCreateBankAccountChange, onGroupRoleChange, onSubmitClick, session, users, bankAccounts, selectedGroup }) => {
     const bankAccountMap = getBankAccountMap(bankAccounts)
     const isAdmin = session.roles.isStaff || session.roles.isDirector
     const isBanker = session.roles.isBanker
@@ -21,7 +21,7 @@ const AccountList = ({ onDeleteClick, onIsApprovedChange, onCreateBankAccountCha
                 </tr>
             </thead>
             <tbody>
-                {users.filter(user => isDeletable(user, session.roles)).map(user => {
+                {users.filter(user => !selectedGroup || roleMapper.getGroupRole(user.roles) === selectedGroup).filter(user => isDeletable(user, session.roles)).map(user => {
                     return (
                         <tr key={user.id}>
                             <td>
