@@ -5,13 +5,13 @@ export default function userReducer(state = initialState.users, action) {
     switch(action.type) {
         case CREATE_USER_SUCCESS:
             return {
-                ...state,
-                list: [action.user, ...state.users]
+                selectedGroup: action.user.groupRole,
+                list: [action.user, ...state.list]
             }
         case UPDATE_USER_SUCCESS:
             return {
                 ...state,
-                list: state.users.map (
+                list: state.list.map (
                     user => user.id === action.user.id ? action.user : user 
                 )
             }
@@ -23,12 +23,12 @@ export default function userReducer(state = initialState.users, action) {
         case DELETE_USER_OPTIMISTIC:
             return {
                 ...state,
-                list: state.filter (user => user.id !== action.user.id)
+                list: state.list.filter (user => user.id !== action.user.id)
             }
         case CLEAR_USERS:
             return {
                 ...state,
-                list: initialState.users
+                list: initialState.users.list
             }
         case SELECT_GROUP_SUCCESS:
             return {

@@ -29,7 +29,7 @@ export function createBankAccount(username) {
     return function (dispatch) {
         dispatch(beginApiCall)
         return bankAccountApi
-        .createBankAccount(username)
+        .createBankAccountParse(username)
         .then(() => {
             dispatch(createBankAccountSuccess(username));
         })
