@@ -39,7 +39,7 @@ class AccountsPage extends React.Component {
     }
     
     updateUser = user=> {
-        const newRoleName = roleMapper.getGroupRole(user.roles)
+        const newRoleName = roleMapper.getGroupRole(user.parseObject.get("roles"))
         var oldRoleName = null
         if (this.props.usersToRoles.has(user.id)) {
             oldRoleName = roleMapper.getGroupRole(this.props.usersToRoles.get(user.id))
@@ -111,7 +111,6 @@ class AccountsPage extends React.Component {
         oldParseObject.set("roles",[newGroupRole])
         return {
             ...user,
-            roles: [newGroupRole],
             parseObject: oldParseObject
         }
     }

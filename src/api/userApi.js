@@ -19,25 +19,6 @@ export function getUsers() {
     .then(handleResponse)
     .catch(handleError);
 }
-//TODO handle puts
-export function saveUser(rawUser) {
-  const state = loadFromLocalStorage()
-  const sessionToken = state.session.sessionToken
-  //TODO create user mapper
-  const user = {username: rawUser.username, objectId: rawUser.objectId, isApproved: rawUser.isApproved, roles: rawUser.roles}
-  return fetch(baseUrl + (user.objectId || ""), {
-    method: user.objectId ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
-    headers: {
-      "content-type": "application/json",
-      "X-Parse-Application-Id": appId,
-      "X-Parse-REST-API-Key": restApiKey,
-      "X-Parse-Session-Token": sessionToken
-    },
-    body: JSON.stringify(user)
-  })
-    .then(handleResponse)
-    .catch(handleError);
-}
 
 export const getUsersParse = async () => {
   const User = new Parse.User()

@@ -63,7 +63,7 @@ const AccountList = ({ onDeleteClick, onIsApprovedChange, onCreateBankAccountCha
     )
 }
 const getGroupRoleInput = (user, isAdmin, onChange) => {
-    const groupRole = roleMapper.getGroupRole(user.roles)
+    const groupRole = roleMapper.getGroupRole(user.parseObject.get("roles"))
     if (groupRole) {
         if (isAdmin) {
             return <select name="groups" id={user.id} value={groupRole} onChange={onChange}>
