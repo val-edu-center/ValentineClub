@@ -10,6 +10,7 @@ import Parse from 'parse/dist/parse.min.js'
 import { toast } from "react-toastify";
 
 const ManageGameNightPage = ({ showSpinner, gameNights, actions, history, ...props }) => {
+    //TODO replace this with persistene
     const possibleOptions = ['Super Mario Party','Mario Kart 8 Deluxe','Overcooked','Gang Beasts','Jenga','Ping Pong','Super Smash','Jackbox Party Pack','Uno!','Monopoly Deal','Brawlhalla','Pico Park','Dungeons and Dragons','Marble','Risk: Global Domination','Survivor Pong','Ring The Bells']
     //This is how React Hooks add state to function components
     const [gameNight, setGameNight] = useState({ ...props.gameNight })
