@@ -4,5 +4,6 @@ export default {
     gameNight: {dates:[], votes:[]},
     bankAccounts: [],
     session: {roles:{}},
+    prints: [],
     apiCallsInProgress: 0
 }

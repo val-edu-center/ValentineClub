@@ -15,8 +15,9 @@ import Parse from 'parse/dist/parse.min.js'
 import GameNightPage from './components/gameNights/GameNightPage'
 import ManageGameNightPage from './components/gameNights/ManageGameNightPage'
 import ManageAccountPage from './components/accounts/ManageAccountPage'
+import PrintsPage from './components/prints/PrintsPage'
+import ManagePrintPage from './components/prints/ManagePrintPage'
 
-//TODO Add secure configs for this
 const PARSE_APPLICATION_ID = process.env.REACT_APP_PARSE_APPLICATION_ID
 const PARSE_HOST_URL = process.env.REACT_APP_PARSE_HOST_URL
 const PARSE_JAVASCRIPT_KEY = process.env.REACT_APP_PARSE_JAVASCRIPT_KEY
@@ -39,6 +40,9 @@ function App() {
                 <Route path="/account/" component={ManageAccountPage}></Route>
                 <Route path="/gamenights" component={GameNightPage}></Route>
                 <Route path="/gamenight/" component={ManageGameNightPage}></Route>
+                <Route path="/prints" component={PrintsPage}></Route>
+                <Route path="/print/:slug" component={ManagePrintPage}></Route>
+                <Route path="/print/" component={ManagePrintPage}></Route>
                 <Route path="/unauthorized" component={UnauthorizedPage}></Route>
                 <Route component={PageNotFound}></Route>
             </Switch>
