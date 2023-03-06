@@ -13,3 +13,8 @@ nav {
     background-color: rgb(2, 232, 248);
     border-radius: .3rem;
   }
+
+
+.logo {
+    height: 250px;
+}
