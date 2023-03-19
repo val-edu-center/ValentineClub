@@ -5,7 +5,7 @@ const HomePage = () => (
     <div className="jumbotron">
         <h1>Valentine Boys and Girls Club</h1>
         <div>
-            <div style={{'display': 'flex', 'justify-content': 'space-around'}}>
+            <div style={{'display': 'flex', 'justifyContent': 'space-around'}}>
                 <img className="home-page-img logo" src="https://s3.amazonaws.com/dropbox.valentine/assets/blkw.png" />
                 <img className="home-page-img logo" src="https://s3.amazonaws.com/dropbox.valentine/assets/blueblk.png" />
                 <img className="home-page-img logo" src="https://s3.amazonaws.com/dropbox.valentine/assets/blueblkwhitetxt.png" />
