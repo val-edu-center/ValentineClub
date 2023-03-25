@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Parse from 'parse/dist/parse.min.js'
+import DateInput from "../common/DateInput";
 
 
 const SchedulePage = () => {
@@ -13,23 +14,28 @@ const SchedulePage = () => {
         schedule.set("scheduleDate", new Date())
         schedule.set("file", parseFile)
 
-        schedule.save().then(function() {
+        schedule.save().then(function () {
             console.log("bet")
-        }, function(error) {
+        }, function (error) {
             console.log("oof")
         });
     }
     const fileUploadHandler = () => {
-        const parseFile = new Parse.File("bra", selectedFile);
-        parseFile.save().then(function() {
+        const parseFile = new Parse.File(selectedFile.name, selectedFile);
+        parseFile.save().then(function () {
             console.log("bet")
             saveSchedule(parseFile)
-        }, function(error) {
+        }, function (error) {
             console.log("oof")
         });
     }
     return (<div>
-        <h2>About Valentine</h2>
+        <h2>Upload Schedule</h2>
+
+        <DateInput
+            name="date"
+            label="Date"
+        />
         <input type="file" onChange={fileSelectedHandler} />
         <p>{selectedFile?.name}</p>
         <button onClick={fileUploadHandler}>Submit</button>
