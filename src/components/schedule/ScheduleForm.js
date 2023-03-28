@@ -16,20 +16,22 @@ const SchedulePage = () => {
         schedule.save().then(function() {
             console.log("bet")
         }, function(error) {
+            console.log(error)
             console.log("oof")
         });
     }
     const fileUploadHandler = () => {
-        const parseFile = new Parse.File("bra", selectedFile);
+        const parseFile = new Parse.File("bra2", selectedFile);
         parseFile.save().then(function() {
             console.log("bet")
             saveSchedule(parseFile)
         }, function(error) {
+            console.log(error)
             console.log("oof")
         });
     }
     return (<div>
-        <h2>About Valentine</h2>
+        <h2>Manage Schedules</h2>
         <input type="file" onChange={fileSelectedHandler} />
         <p>{selectedFile?.name}</p>
         <button onClick={fileUploadHandler}>Submit</button>

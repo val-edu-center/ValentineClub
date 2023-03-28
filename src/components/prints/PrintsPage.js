@@ -8,7 +8,7 @@ import HistoryList from "./HistoryList"
 import PendingList from "./PendingList"
 import { toast } from "react-toastify"
 
-const PrintsPage = ({ prints, actions, ...props }) => {
+const PrintsPage = ({ prints, actions}) => {
 
     const [redirectToAddPrintPage, setRedirectToAddPrintPage] = useState(false)
 

@@ -5,5 +5,6 @@ export default {
     bankAccounts: [],
     session: {roles:{}},
     prints: [],
+    schedules: [],
     apiCallsInProgress: 0
 }

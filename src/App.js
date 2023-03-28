@@ -17,7 +17,7 @@ import ManageGameNightPage from './components/gameNights/ManageGameNightPage'
 import ManageAccountPage from './components/accounts/ManageAccountPage'
 import PrintsPage from './components/prints/PrintsPage'
 import ManagePrintPage from './components/prints/ManagePrintPage'
-import SchedulePage from './components/schedule/SchedulePage'
+import SchedulePage from './components/schedule/SchedulesPage'
 
 const PARSE_APPLICATION_ID = process.env.REACT_APP_PARSE_APPLICATION_ID
 const PARSE_HOST_URL = process.env.REACT_APP_PARSE_HOST_URL
