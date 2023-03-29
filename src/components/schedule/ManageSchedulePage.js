@@ -85,8 +85,7 @@ function createNewSchedule() {
 
 function mapStateToProps(state, ownProps) {
     // this is available bc /:slug in App.js
-    const slug = ownProps.match.params.slug
-    const schedule = slug && state.schedules.length > 0 ? getScheduleById(state.schedules, slug) : createNewSchedule()
+    const schedule = createNewSchedule()
 
     var showSpinner = false
     if (state.apiCallsInProgress > 0) {
