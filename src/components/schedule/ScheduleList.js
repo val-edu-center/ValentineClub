@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from "prop-types"
 import { Link } from 'react-router-dom'
 
-const ScheduleList = ({ onDeleteClick, schedules}) => {
+const ScheduleList = ({ onDeleteClick, schedules }) => {
     return (
         <table className="table">
             <thead>
@@ -23,15 +23,15 @@ const ScheduleList = ({ onDeleteClick, schedules}) => {
                                 {schedule.scheduleDate.toDateString()}
                             </td>
                             <td> <a href={url}>{name}</a> </td>
-                                <td>
-                                    <button
-                                        className="btn btn-outline-danger"
-                                        onClick={() => onDeleteClick(schedule)}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            
+                            <td>
+                                <button
+                                    className="btn btn-outline-danger"
+                                    onClick={() => onDeleteClick(schedule)}
+                                >
+                                    Delete
+                                </button>
+                            </td>
+
                         </tr>
                     )
                 })}
