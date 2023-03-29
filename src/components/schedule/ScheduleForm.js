@@ -13,7 +13,6 @@ const ScheduleForm = ({ onSave, onFileChange, onDateChange, schedule, errors, sa
                 label="Date"
                 onChange={onDateChange}
                 error={errors.scheduleDate}
-                value={schedule.scheduleDate}
             />
             <FileInput
                 name="file"
