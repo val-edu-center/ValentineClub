@@ -1,4 +1,4 @@
-import { CREATE_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_USERS_SUCCESS, DELETE_USER_OPTIMISTIC, CLEAR_USERS, SELECT_GROUP_SUCCESS } from "../actions/actionTypes"
+import { CREATE_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_USERS_SUCCESS, DELETE_USER_OPTIMISTIC, CLEAR_USERS, SELECT_GROUP } from "../actions/actionTypes"
 import initialState from './initialState'
 
 export default function userReducer(state = initialState.users, action) {
@@ -30,7 +30,7 @@ export default function userReducer(state = initialState.users, action) {
                 ...state,
                 list: initialState.users.list
             }
-        case SELECT_GROUP_SUCCESS:
+        case SELECT_GROUP:
             return {
                 ...state,
                 selectedGroup: action.group

@@ -5,11 +5,6 @@ const HomePage = () => (
     <div className="jumbotron">
         <h1>Valentine Boys and Girls Club</h1>
         <div>
-            <div style={{'display': 'flex', 'justifyContent': 'space-around'}}>
-                <img className="home-page-img logo" src="https://s3.amazonaws.com/dropbox.valentine/assets/blkw.png" />
-                <img className="home-page-img logo" src="https://s3.amazonaws.com/dropbox.valentine/assets/blueblk.png" />
-                <img className="home-page-img logo" src="https://s3.amazonaws.com/dropbox.valentine/assets/blueblkwhitetxt.png" />
-            </div>
             <img style={{ height: "400px" }} className="home-page-img" src="https://pbs.twimg.com/media/FKhqe2GXMAMpUKT?format=png" />
             <img className="home-page-img" src="https://bgcc.org/wp-content/uploads/2021/08/DSC_0564-445x340.jpg" />
             <img className="home-page-img" src="https://bgcc.org/wp-content/uploads/2021/08/Group-with-Ron-Kittle-453x340.jpg" />

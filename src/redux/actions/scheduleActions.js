@@ -1,13 +1,13 @@
 import * as scheduleApi from "../../api/scheduleApi"
 import { beginApiCall, apiCallError } from "./apiStatusActions"
-import { LOAD_ALL_SCHEDULES_SUCCESS, CREATE_SCHEDULE_SUCCES, DELETE_SCHEDULE_OPTIMISTIC } from "./actionTypes"
+import { LOAD_ALL_SCHEDULES_SUCCESS, CREATE_SCHEDULE_SUCCESS, DELETE_SCHEDULE_OPTIMISTIC } from "./actionTypes"
 
 export function loadAllSchedulesSuccess(schedules) {
     return { type: LOAD_ALL_SCHEDULES_SUCCESS, schedules }
 }
 
 export function createScheduleSuccess(schedule) {
-    return { type: CREATE_SCHEDULE_SUCCES, schedule }
+    return { type: CREATE_SCHEDULE_SUCCESS, schedule }
 }
 
 export function deleteScheduleOptimistic(schedule) {

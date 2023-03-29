@@ -7,11 +7,13 @@ export const getAllSchedules = async () => {
     return results.map(schedule => scheduleMapper.mapScheduleParse(schedule))
 }
 export const saveSchedule = async (schedule) => {
+    const parseFile = new Parse.File(schedule.file.name, schedule.file);
+    await parseFile.save()
+    schedule.parseObject.set("file", parseFile)
     await schedule.parseObject.save()
     return scheduleMapper.mapScheduleParse(schedule.parseObject)
 }
 
 export const deleteSchedule = async (schedule) => {
-    await schedule.file.destroy()
     await schedule.parseObject.destroy()
 }

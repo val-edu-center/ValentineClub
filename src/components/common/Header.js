@@ -18,7 +18,7 @@ const Header = ( {session} ) => {
             {session.sessionToken && " | "}
             {session.sessionToken && <NavLink to="/accounts" activeStyle={activeStyle}>Accounts</NavLink>}
             {session.sessionToken && (isDirector || isStaff) && " | "}
-            {session.sessionToken && (isDirector || isStaff) && <NavLink to="/schedule" activeStyle={activeStyle}>Schedule</NavLink>}
+            {session.sessionToken && (isDirector || isStaff) && <NavLink to="/schedules" activeStyle={activeStyle}>Schedules</NavLink>}
             {session.sessionToken && (isDirector || isStaff) && " | "}
             {session.sessionToken && (isDirector || isStaff) && <NavLink to="/gamenights" activeStyle={activeStyle}>Game Nights</NavLink>}
             {session.sessionToken && " | "}

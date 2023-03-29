@@ -1,56 +1,61 @@
 import React from "react"
-import PrintForm from "./PrintForm"
-import * as printActions from "../../redux/actions/printActions"
+import * as scheduleActions from "../../redux/actions/scheduleActions"
 import { bindActionCreators } from "redux"
-import Print from "../../model/Print"
 import { connect } from "react-redux"
 import { toast } from "react-toastify"
 import Parse from 'parse/dist/parse.min.js'
-import { setState, useState } from "react"
+import { useState } from "react"
+import ScheduleForm from "./ScheduleForm"
+import PropTypes from 'prop-types'
+import Schedule from "../../model/Schedule"
+import Spinner from "../common/Spinner"
 
-const ManagePrintPage = ({ actions, prints, showSpinner, history, ...props }) => {
-    const [print, setPrint] = useState({ ...props.print })
+const ManageSchedulePage = ({ actions, schedules, showSpinner, history, ...props }) => {
+    const [schedule, setSchedule] = useState({ ...props.schedule })
     const [errors, setErrors] = useState({ ...props.errors })
     const [saving, setSaving] = useState(false)
 
-    function changeDescription(print, description) {
-        const parseObject = print.parseObject
-        parseObject.set("description", description)
+    function changeDate(schedule, newDate) {
+        const oldParseObject = schedule.parseObject
+        //TODO Address DST
+        oldParseObject.set("scheduleDate", new Date(newDate + "T00:00:00.000-06:00"))
         return {
-            ...print,
-            description,
-            parseObject
+            ...schedule,
+            scheduleDate: newDate,
+            parseObject: oldParseObject
         }
     }
 
-    function handleDescriptionChange(event) {
-        const description = event.target.value
-        const newPrint = changeDescription(print, description)
-        setPrint(newPrint)
-    }
+    function handleDateChange(event) {
+        const newDate = event.target.value
+        const newSchedule = changeDate(schedule, newDate)
+        setSchedule(newSchedule)
 
-    function changeColor(print, color) {
-        const parseObject = print.parseObject
-        parseObject.set("color", color)
+    }
+    
+    function changeFile(schedule, newFile) {
+        const oldParseObject = schedule.parseObject
+        oldParseObject.set("file", newFile)
         return {
-            ...print,
-            color: color ? color : '',
-            parseObject
+            ...schedule,
+            file: newFile,
+            parseObject: oldParseObject
         }
+
     }
 
-    function handleColorChange(event) {
-        const color = event.target.value
-        const newPrint = changeColor(print, color)
-        setPrint(newPrint)
+    function handleFileChange(event) {
+        const newFile = event.target.files[0]
+        const newSchedule = changeFile(schedule, newFile)
+        setSchedule(newSchedule)
     }
 
     function formIsValid() {
-        const { description, color } = print
+        const { file, scheduleDate } = schedule
         const errors = {}
 
-        if (!description) errors.description = "Description is required"
-        if (!color) errors.color = "Color is required"
+        if (!file) errors.file = "Image is required"
+        if (!scheduleDate) errors.scheduleDate = "Date is required"
 
         setErrors(errors)
         return Object.keys(errors).length === 0
@@ -61,23 +66,27 @@ const ManagePrintPage = ({ actions, prints, showSpinner, history, ...props }) =>
         event.preventDefault()
         if (!formIsValid()) return
         setSaving(true)
-        actions.print.savePrint(print).then(() => {
-            toast.success("Print saved.")
-            history.push("/prints")
+        actions.schedule.saveSchedule(schedule).then(() => {
+            toast.success("Schedule saved.")
+            history.push("/schedules")
         }).catch(error => {
             setSaving(false)
             setErrors({ onSave: error.message })
         })
     }
-    //TODO make available from persistence
-    const availableColors = ["Black","White","Blue","Pink","Gold","Grey","Brown","Teal","Clear"]
-    return <PrintForm onSave={handleSave} onColorChange={handleColorChange} onDescriptionChange={handleDescriptionChange} print={print} errors={errors} saving={saving} colors={availableColors.map(color => {return {value:color, text:color}})}></PrintForm>
+    return showSpinner ? <Spinner/> : <ScheduleForm onFileChange={handleFileChange} onDateChange={handleDateChange} onSave={handleSave} schedule={schedule} errors={errors} saving={saving}/>
+}
+
+function createNewSchedule() {
+    const schedule = new Schedule
+    schedule.parseObject = new Parse.Object("Schedule")
+    return schedule
 }
 
 function mapStateToProps(state, ownProps) {
     // this is available bc /:slug in App.js
     const slug = ownProps.match.params.slug
-    const print = slug && state.prints.length > 0 ? getPrintById(state.prints, slug) : createNewPrint()
+    const schedule = slug && state.schedules.length > 0 ? getScheduleById(state.schedules, slug) : createNewSchedule()
 
     var showSpinner = false
     if (state.apiCallsInProgress > 0) {
@@ -87,32 +96,30 @@ function mapStateToProps(state, ownProps) {
     }
 
     return {
-        prints: state.prints,
-        print,
+        schedules: state.schedules,
+        schedule,
         showSpinner,
         errors: []
     }
 }
-function getPrintById(prints, id) {
-    return prints.find(print => print.id === id) || null
-}
-
-function createNewPrint() {
-    const print = new Print
-    const currentUsername = Parse.User.current().getUsername()
-    print.clientUsername = currentUsername
-    print.parseObject = new Parse.Object("Print")
-    print.parseObject.set("clientUsername", currentUsername)
-    
-    return print
+function getScheduleById(schedules, id) {
+    return schedules.find(schedule => schedule.id === id) || null
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actions: {
-            print: bindActionCreators(printActions, dispatch)
+            schedule: bindActionCreators(scheduleActions, dispatch)
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManagePrintPage)
+ManageSchedulePage.propTypes = {
+    errors: PropTypes.array.isRequired,
+    schedules: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired,
+    schedule: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageSchedulePage)

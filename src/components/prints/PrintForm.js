@@ -10,13 +10,6 @@ const PrintForm = ({onSave, onColorChange, onDescriptionChange, print, colors, s
                     {errors.onSave}
                 </div>
             )}
-            <TextInput
-                name="description"
-                label="Description"
-                value={print.description}
-                onChange={onDescriptionChange}
-                error={errors.description}
-            ></TextInput>
             <SelectInput
                 name="color"
                 label="Color"
@@ -26,6 +19,13 @@ const PrintForm = ({onSave, onColorChange, onDescriptionChange, print, colors, s
                 onChange={onColorChange}
                 error={errors.color}
             ></SelectInput>
+            <TextInput
+                name="description"
+                label="Description"
+                value={print.description}
+                onChange={onDescriptionChange}
+                error={errors.description}
+            ></TextInput>
 
             <button type="submit" disabled={saving} className="btn btn-primary">
                 {saving ? "Saving..." : "Save"}

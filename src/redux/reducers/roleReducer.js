@@ -1,11 +1,11 @@
-import { LOAD_ALL_ROLES_SUCCESS, LOAD_USERS_FOR_ROLE, CHANGE_GROUP_ROLE_SUCCESS, CLEAR_ROLES, ADD_USER_ROLE_SUCCESS, REMOVE_USER_ROLE_SUCCESS } from "../actions/actionTypes"
+import { LOAD_ALL_ROLES_SUCCESS, LOAD_USERS_FOR_ROLE_SUCCESS, CHANGE_GROUP_ROLE_SUCCESS, CLEAR_ROLES, ADD_USER_ROLE_SUCCESS, REMOVE_USER_ROLE_SUCCESS } from "../actions/actionTypes"
 import initialState from "./initialState"
 
 export default function roleReducer(state = initialState.roles, action) {
     switch (action.type) {
         case LOAD_ALL_ROLES_SUCCESS:
             return { ...state, all: action.allRoles }
-        case LOAD_USERS_FOR_ROLE:
+        case LOAD_USERS_FOR_ROLE_SUCCESS:
             return { ...state, userToRoles: addUsers(state, action.role.get('name'), action.users) }
         case ADD_USER_ROLE_SUCCESS:
             return { ...state, userToRoles: changeRole(state, action.user, action.role.get('name'), null)}

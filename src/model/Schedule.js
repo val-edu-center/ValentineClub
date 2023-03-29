@@ -1,7 +1,7 @@
 class Schedule {
     id = null
     parseObject = null
-    scheduleDate = null
+    scheduleDate = ""
     file = null
 }
 
