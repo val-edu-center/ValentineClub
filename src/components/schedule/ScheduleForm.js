@@ -16,7 +16,7 @@ const ScheduleForm = ({ onSave, onFileChange, onDateChange, schedule, errors, sa
                 value={schedule.scheduleDate}
             />
             <FileInput
-                name="scheuld-image"
+                name="file"
                 label="Schedule Image"
                 onChange={onFileChange}
                 error={errors.file}
