@@ -30,9 +30,8 @@ const SchedulePage = ({ schedules, actions, loading }) => {
         )
     }
 
-    return loading ? <Spinner/> : (<div>
-            {redirectToAddSchedulePage && <Redirect to="/schedule/" />}
-
+    return loading ? <Spinner /> : (<div>
+        {redirectToAddSchedulePage && <Redirect to="/schedule/" />}
         <h2>Manage Schedules</h2>
         <button style={{ marginBottom: 20 }} className="btn btn-primary" onClick={() => setRedirectToAddSchedulePage(true)}>
             Add Schedule
