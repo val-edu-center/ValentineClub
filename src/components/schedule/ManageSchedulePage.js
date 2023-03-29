@@ -101,9 +101,6 @@ function mapStateToProps(state, ownProps) {
         errors: []
     }
 }
-function getScheduleById(schedules, id) {
-    return schedules.find(schedule => schedule.id === id) || null
-}
 
 function mapDispatchToProps(dispatch) {
     return {
