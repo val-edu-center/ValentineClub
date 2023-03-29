@@ -8,11 +8,6 @@ const ScheduleForm = ({ onSave, onFileChange, onDateChange, schedule, errors, sa
     return (
         <form onSubmit={onSave}>
             <h2>Add Schedule</h2>
-            {errors.onSave && (
-                <div className="alert alert-danger" role="alert">
-                    {errors.onSave}
-                </div>
-            )}
             <DateInput
                 name="date"
                 label="Date"

@@ -5,11 +5,6 @@ const PrintForm = ({onSave, onColorChange, onDescriptionChange, print, colors, s
     return (
         <form onSubmit={onSave}>
             <h2>{print.id ? "Edit" : "Add"} 3D Print</h2>
-            {errors.onSave && (
-                <div className="alert alert-danger" role="alert">
-                    {errors.onSave}
-                </div>
-            )}
             <SelectInput
                 name="color"
                 label="Color"

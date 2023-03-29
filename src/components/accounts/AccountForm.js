@@ -11,11 +11,6 @@ const AccountForm = ({ account, allRoles, onFirstChange, onLastChange, onSave, o
     return (
         <form onSubmit={onSave}>
             <h2>{account.id ? "Edit" : "Add"} Account</h2>
-            {errors.onSave && (
-                <div className="alert alert-danger" role="alert">
-                    {errors.onSave}
-                </div>
-            )}
             <RadioInput
                 name="role"
                 label="Role"
