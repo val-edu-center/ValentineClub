@@ -17,6 +17,8 @@ import ManageGameNightPage from './components/gameNights/ManageGameNightPage'
 import ManageAccountPage from './components/accounts/ManageAccountPage'
 import PrintsPage from './components/prints/PrintsPage'
 import ManagePrintPage from './components/prints/ManagePrintPage'
+import SchedulePage from './components/schedule/SchedulesPage'
+import ManageSchedulePage from './components/schedule/ManageSchedulePage'
 
 const PARSE_APPLICATION_ID = process.env.REACT_APP_PARSE_APPLICATION_ID
 const PARSE_HOST_URL = process.env.REACT_APP_PARSE_HOST_URL
@@ -39,6 +41,8 @@ function App() {
                 <Route path="/account/:slug" component={ManageAccountPage}></Route>
                 <Route path="/account/" component={ManageAccountPage}></Route>
                 <Route path="/gamenights" component={GameNightPage}></Route>
+                <Route path="/schedules" component={SchedulePage}></Route>
+                <Route path="/schedule/" component={ManageSchedulePage}></Route>
                 <Route path="/gamenight/" component={ManageGameNightPage}></Route>
                 <Route path="/prints" component={PrintsPage}></Route>
                 <Route path="/print/:slug" component={ManagePrintPage}></Route>

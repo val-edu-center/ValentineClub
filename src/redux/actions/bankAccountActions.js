@@ -12,7 +12,7 @@ export function createBankAccountSuccess (username) {
 
 export function loadBankAccounts() {
     return function (dispatch) {
-        dispatch(beginApiCall)
+        dispatch(beginApiCall())
         return bankAccountApi
         .getAllAccountsParse()
         .then(results => {
@@ -27,7 +27,7 @@ export function loadBankAccounts() {
 
 export function createBankAccount(username) {
     return function (dispatch) {
-        dispatch(beginApiCall)
+        dispatch(beginApiCall())
         return bankAccountApi
         .createBankAccountParse(username)
         .then(() => {

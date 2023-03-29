@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom'
 import GameNightPieChart from "./GameNightPieChart"
 import PropTypes from "prop-types"
+import Spinner from "../common/Spinner"
 
 class GameNightPage extends React.Component {
     state = {
@@ -26,7 +27,7 @@ class GameNightPage extends React.Component {
     }
 
     render() {
-        return (
+        return this.props.loading ? <Spinner/> : (
             <>
                 {(!this.props.session.sessionToken || !(this.props.session.roles.isStaff || this.props.session.roles.isDirector)) && <Redirect to="/unauthorized" />}
                 {this.state.redirectToAddGameNightPage && <Redirect to="/gamenight/" />}
@@ -40,6 +41,7 @@ class GameNightPage extends React.Component {
                     const votes = this.props.gameNight.votes.filter(
                         vote => isSameGameNightDate(date, new Date(vote.gameNightDate))
                     )
+                    //TODO create list component and add delete button
                     return <GameNightPieChart key={gameNight.id} title={dateString} votes={votes}></GameNightPieChart>
                 })}
             </>

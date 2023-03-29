@@ -7,8 +7,9 @@ import AcceptedList from "./AcceptedList"
 import HistoryList from "./HistoryList"
 import PendingList from "./PendingList"
 import { toast } from "react-toastify"
+import Spinner from "../common/Spinner"
 
-const PrintsPage = ({ prints, actions, ...props }) => {
+const PrintsPage = ({ prints, actions, loading}) => {
 
     const [redirectToAddPrintPage, setRedirectToAddPrintPage] = useState(false)
 
@@ -106,7 +107,7 @@ const PrintsPage = ({ prints, actions, ...props }) => {
         actions.print.updatePrint(newPrint)
     }
     const approvedStatuses = ["DESIGNING", "PRINTING", "COMPLETED"]
-    return (
+    return  loading ? <Spinner/> :(
         <>
             {redirectToAddPrintPage && <Redirect to="/print/" />}
             <h2>3D Printing</h2>
@@ -131,7 +132,8 @@ const PrintsPage = ({ prints, actions, ...props }) => {
 
 function mapStateToProps(state, ownProps) {
     return {
-        prints: state.prints
+        prints: state.prints,
+        loading: state.apiCallsInProgress > 0
     }
 }
 function mapDispatchToProps(dispatch) {

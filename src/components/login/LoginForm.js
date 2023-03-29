@@ -12,11 +12,6 @@ const LoginForm = ({
   return (
     <form onSubmit={onLogin}>
       <h2>Login</h2>
-      {errors.onSave && (
-        <div className="alert alert-danger" role="alert">
-          {errors.onSave}
-        </div>
-      )}
       <TextInput
         name="username"
         label="Username"

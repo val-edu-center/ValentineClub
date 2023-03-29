@@ -1,13 +1,13 @@
 import * as roleApi from "../../api/roleApi"
 import { beginApiCall, apiCallError } from "./apiStatusActions"
-import { ADD_USER_ROLE_SUCCESS, CHANGE_GROUP_ROLE_SUCCESS, LOAD_ALL_ROLES_SUCCESS, LOAD_USERS_FOR_ROLE, REMOVE_USER_ROLE_SUCCESS } from "./actionTypes"
+import { ADD_USER_ROLE_SUCCESS, CHANGE_GROUP_ROLE_SUCCESS, LOAD_ALL_ROLES_SUCCESS, LOAD_USERS_FOR_ROLE_SUCCESS, REMOVE_USER_ROLE_SUCCESS } from "./actionTypes"
 
 export function loadAllRolesSuccess(allRoles) {
     return { type: LOAD_ALL_ROLES_SUCCESS, allRoles }
 }
 
 export function loadUsersForRoleSuccess(role, users) {
-    return { type: LOAD_USERS_FOR_ROLE, role, users }
+    return { type: LOAD_USERS_FOR_ROLE_SUCCESS, role, users }
 }
 
 export function changeGroupRoleSuccess(user, newRole, oldRole) {
@@ -24,7 +24,7 @@ export function removeUserSuccess(user, role) {
 
 export function loadAllRoles() {
     return function (dispatch) {
-        dispatch(beginApiCall)
+        dispatch(beginApiCall())
         return roleApi
             .getAllParseRoles()
             .then(roles => {
@@ -39,7 +39,7 @@ export function loadAllRoles() {
 }
 export function loadUsersForRole(role) {
     return function (dispatch) {
-        dispatch(beginApiCall)
+        dispatch(beginApiCall())
         return roleApi
             .getUsersForRole(role)
             .then(users => {

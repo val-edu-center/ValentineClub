@@ -11,6 +11,5 @@ export default function apiCallStatusReducer(state = initialState.apiCallsInProg
     } else if ( action.type === API_CALL_ERROR || actionTypeEndsInSuccess(action.type)) {
         return state - 1
     }
-    
     return state
 }

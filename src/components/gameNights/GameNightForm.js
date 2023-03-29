@@ -15,11 +15,6 @@ const GameNightForm = ({
   return (
     <form onSubmit={onSave}>
       <h2>{gameNight.id ? "Edit" : "Add"} Game Night</h2>
-      {errors.onSave && (
-        <div className="alert alert-danger" role="alert">
-          {errors.onSave}
-        </div>
-      )}
       <DateInput
         name="date"
         label="Date"

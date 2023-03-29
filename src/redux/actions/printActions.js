@@ -1,17 +1,17 @@
 import * as printApi from "../../api/printApi"
 import { beginApiCall, apiCallError } from "./apiStatusActions"
-import { LOAD_ALL_PRINTS_SUCCESS, CREATE_PRINT_SUCCES, UPDATE_PRINT_SUCCES, DELETE_PRINT_OPTIMISTIC } from "./actionTypes"
+import { LOAD_ALL_PRINTS_SUCCESS, CREATE_PRINT_SUCCESS, UPDATE_PRINT_SUCCESS, DELETE_PRINT_OPTIMISTIC } from "./actionTypes"
 
 export function loadAllPrintsSuccess(prints) {
     return { type: LOAD_ALL_PRINTS_SUCCESS, prints }
 }
 
 export function createPrintSuccess(print) {
-    return { type: CREATE_PRINT_SUCCES, print }
+    return { type: CREATE_PRINT_SUCCESS, print }
 }
 
 export function updatePrintSuccess(print) {
-    return { type: UPDATE_PRINT_SUCCES, print }
+    return { type: UPDATE_PRINT_SUCCESS, print }
 }
 
 export function deletePrintOptimistic(print) {

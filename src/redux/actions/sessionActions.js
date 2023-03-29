@@ -12,7 +12,7 @@ export function loadSessionParseSuccess(user) {
 
 export function loadSession({username, password}) {
     return function (dispatch) {
-        dispatch(beginApiCall)
+        dispatch(beginApiCall())
         return sessionApi
         .login(username, password)
         .then(session => {
@@ -27,7 +27,7 @@ export function loadSession({username, password}) {
 
 export function loadSessionParse({username, password}) {
     return function (dispatch) {
-        dispatch(beginApiCall)
+        dispatch(beginApiCall())
         return sessionApi
         .loginParse(username, password)
         .then(user => {

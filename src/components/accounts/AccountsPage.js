@@ -159,7 +159,7 @@ class AccountsPage extends React.Component {
     }
 
     render() {
-        return (
+        return this.props.loading ? <Spinner/> :(
             <>
                 {!this.props.session.sessionToken && <Redirect to="/unauthorized" />}
                 {/* TODO: Conditionally render Members instead of accounts, if the current user is a Member */}

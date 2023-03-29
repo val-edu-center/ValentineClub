@@ -106,7 +106,7 @@ function createNewPrint() {
     
     return print
 }
-
+//TODO Add prop types
 function mapDispatchToProps(dispatch) {
     return {
         actions: {
