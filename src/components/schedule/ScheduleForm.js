@@ -19,6 +19,7 @@ const ScheduleForm = ({ onSave, onFileChange, onDateChange, schedule, errors, sa
                 label="Schedule Image"
                 onChange={onFileChange}
                 error={errors.file}
+                accept=".jpg, .jpeg, .png"
             />
             <button type="submit" disabled={saving} className="btn btn-primary">
                 {saving ? "Saving..." : "Save"}
