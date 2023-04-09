@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-const CheckboxInput = ({ name, label, values, options, onChange, error }) => {
+const CheckboxInput = ({ name, label, values, options, onChange, error, selectAll=true }) => {
     let wrapperClass = "form-group";
     if (error && error.length > 0) {
         wrapperClass += " " + "has-error";
@@ -9,8 +9,8 @@ const CheckboxInput = ({ name, label, values, options, onChange, error }) => {
     return (
         <div className={wrapperClass}>
             <label htmlFor={name}>{label}</label><br/>
-            <input type="checkbox" name="select-all" onChange={onChange}></input>
-            <label htmlFor="select-all"><strong>Select All</strong></label>
+            {selectAll && <><input type="checkbox" name="select-all" onChange={onChange}></input>
+            <label htmlFor="select-all"><strong>Select All</strong></label></>}
             {options.map(option => buildInput(option, values, onChange))}
             {error && <div className="alert alert-danger">{error}</div>}
         </div>
@@ -30,6 +30,7 @@ CheckboxInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     values: PropTypes.array,
     options: PropTypes.array.isRequired,
+    selectAll: PropTypes.bool,
     error: PropTypes.string
 };
 

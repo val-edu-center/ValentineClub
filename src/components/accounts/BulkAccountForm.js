@@ -4,14 +4,22 @@ import TextInput from '../common/TextInput';
 import RadioInput from '../common/RadioInput';
 import * as roleMapper from "../../utility/RoleMapper"
 import CheckboxInput from '../common/CheckboxInput';
+import FileInput from '../common/FileInput';
 
-const AccountForm = ({ account, allRoles, onFirstChange, onLastChange, onSave, onRoleChange, onUsernameChange, onRolesChange, onPasswordChange, saving = false, errors = {}}) => {
+const BulkAccountForm = ({ account, accountsToAdd, allRoles, onFirstChange, onLastChange, onSave, onRoleChange, onUsernameChange, onRolesChange, onPasswordChange, onFileChange, saving = false, errors = {}}) => {
     const roles = roleMapper.getRoles(account.roles)
     const enableUserAndPass = !roles.isPrep && !roles.isCadet
     return (
         <form onSubmit={onSave}>
-            <h2>{account.id ? "Edit" : "Add"} Account</h2>
-            <RadioInput
+            <h2>{account.id ? "Edit" : "Add"} Accounts</h2>
+            <FileInput
+                name="file"
+                label="CSV with format First name, Last name, Age, Group"
+                onChange={onFileChange}
+                error={errors.csv}
+                accept=".csv"
+            />
+            {/* <RadioInput
                 name="role"
                 label="Role"
                 value={account.groupRole}
@@ -55,7 +63,8 @@ const AccountForm = ({ account, allRoles, onFirstChange, onLastChange, onSave, o
                 onChange={onPasswordChange}
                 error={errors.password}
                 secureTextEntry={true}
-            />}
+            />} */}
+            <p>{accountsToAdd.length == 0 ? "No new users yet" : accountsToAdd.length + " new accounts"}</p>
             <button type="submit" disabled={saving} className="btn btn-primary">
                 {saving ? "Saving..." : "Save"}
             </button>
@@ -63,9 +72,10 @@ const AccountForm = ({ account, allRoles, onFirstChange, onLastChange, onSave, o
     );
 }
 
-AccountForm.propTypes = {
+BulkAccountForm.propTypes = {
     account: PropTypes.object.isRequired,
     allRoles: PropTypes.array.isRequired,
+    accountsToAdd: PropTypes.array.isRequired,
     errors: PropTypes.object,
     onSave: PropTypes.func.isRequired,
     onRoleChange: PropTypes.func.isRequired,
@@ -74,7 +84,8 @@ AccountForm.propTypes = {
     onFirstChange: PropTypes.func.isRequired,
     onLastChange: PropTypes.func.isRequired,
     onPasswordChange: PropTypes.func.isRequired,
+    onFileChange: PropTypes.func.isRequired,
     saving: PropTypes.bool
 };
 
-export default AccountForm
+export default BulkAccountForm
