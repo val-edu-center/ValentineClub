@@ -23,6 +23,7 @@ export function getUsers() {
 export const getUsersParse = async () => {
   const User = new Parse.User()
   const query = new Parse.Query(User)
+  query.limit(1000);
 
   query.descending('createdAt');
   
