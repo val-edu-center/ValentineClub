@@ -25,6 +25,7 @@ export function getAllAccounts() {
 
 export const getAllAccountsParse = async () => {
     const query = new Parse.Query('Accounts')
+    query.limit(1000);
     const results = await query.find()
     return results.map(bankAccount => bankAccountMapper.mapBankAccountParse(bankAccount)) 
 }
