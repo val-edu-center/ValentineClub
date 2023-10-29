@@ -8,12 +8,19 @@ import PropTypes from 'prop-types'
 import AccountForm from "./AccountForm"
 import { toast } from "react-toastify"
 import * as roleMapper from "../../utility/RoleMapper"
+import * as userMapper from "../../utility/UserMapper"
 import User from "../../model/User"
+import CheckboxInput from "../common/CheckboxInput"
+import BulkAccountForm from "./BulkAccountForm"
+import Papa from "papaparse";
 
 const ManageAccountPage = ({ accounts, actions, history, allRoles, ...props }) => {
     const [account, setAccount] = useState({ ...props.account })
+    const [accountsToAdd, setAccountsToAdd] = useState([])
     const [errors, setErrors] = useState({ ...props.errors })
     const [saving, setSaving] = useState(false)
+    const [bulk, setBulk] = useState(false)
+    const [csv, setCSV] = useState(null)
     useEffect(() => {
         if (accounts.length === 0) {
             actions.users.loadUsers().catch(error => {
@@ -171,6 +178,54 @@ const ManageAccountPage = ({ accounts, actions, history, allRoles, ...props }) =
         return Object.keys(errors).length === 0
     }
 
+    function bulkFormIsValid() {
+        const errors = {}
+        if (!csv) errors.csv = "CSV is required"
+
+        setErrors(errors)
+        return Object.keys(errors).length === 0
+    }
+
+    function handleBulkChange(event) {
+        setBulk(event.target.checked)
+    }
+
+    function handleFileChange(event) {
+        const newFile = event.target.files[0]
+
+
+        // Initialize a reader which allows user
+        // to read any file or blob.
+        const reader = new FileReader();
+         
+        // Event listener on reader when the file
+        // loads, we parse it and set the data.
+        reader.onload = async ({ target }) => {
+            const csv = Papa.parse(target.result, { header: true });
+            const parsedData = csv?.data;
+            const columns = Object.keys(parsedData[0]);
+            const users = parsedData.map(row => {
+                const user = new Parse.User()
+                const firstName = row["First name"]
+                const lastName = row["Last name"]
+                const group = row["Group"]
+                const username = setUsername(firstName, group, lastName)
+                const password = setPassword(firstName, group, lastName)
+                user.set("firstName", firstName)
+                user.set("lastName", lastName)
+                user.set("roles", [group])
+                user.set("isApproved", true)
+                user.set("username", username)
+                user.set("password", password)
+                return userMapper.mapUserParse(user)
+            })
+            setAccountsToAdd(users)
+        };
+        reader.readAsText(newFile);
+
+
+        setCSV(newFile)
+    }
     //One way to redirect, history comes from React Router
     function handleSave(event) {
         event.preventDefault()
@@ -195,7 +250,32 @@ const ManageAccountPage = ({ accounts, actions, history, allRoles, ...props }) =
             setErrors({ onSave: error.message })
         })
     }
-    return <AccountForm allRoles={allRoles.map(r => r.getName())} onRolesChange={handleRolesChange} account={account} onFirstChange={handleFirstChange} onLastChange={handleLastChange} onPasswordChange={handlePasswordChange} onRoleChange={handleRoleChange} onUsernameChange={handleUsernameChange} onSave={handleSave} errors={errors} saving={saving}></AccountForm>
+    function handleBulkSave(event) {
+        event.preventDefault()
+        if (!bulkFormIsValid()) return
+        setSaving(true)
+        const promises = accountsToAdd.map(a => actions.users.saveUser(a))
+        Promise.all(promises).then((values) => {
+            console.log(values);
+
+            setSaving(false)
+          });
+    }
+    return <>
+        <CheckboxInput
+                name="bulk"
+                label=""
+                options={["Bulk"]}
+                values={ bulk ? ["Bulk"] : []}
+                onChange={handleBulkChange}
+                error={errors.roles}
+                selectAll={false}
+        />
+        
+        {bulk ? <BulkAccountForm allRoles={allRoles.map(r => r.getName())} accountsToAdd={accountsToAdd} onRolesChange={handleRolesChange} account={account} onFirstChange={handleFirstChange} onLastChange={handleLastChange} onPasswordChange={handlePasswordChange} onRoleChange={handleRoleChange} onUsernameChange={handleUsernameChange} onFileChange={handleFileChange} onSave={handleBulkSave} errors={errors} saving={saving}></BulkAccountForm> :
+        <AccountForm allRoles={allRoles.map(r => r.getName())} onRolesChange={handleRolesChange} account={account} onFirstChange={handleFirstChange} onLastChange={handleLastChange} onPasswordChange={handlePasswordChange} onRoleChange={handleRoleChange} onUsernameChange={handleUsernameChange} onSave={handleSave} errors={errors} saving={saving}></AccountForm>
+        }
+    </>
 }
 
 ManageAccountPage.propTypes = {
